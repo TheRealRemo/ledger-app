@@ -1,7 +1,11 @@
 package com.pluralsight;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -74,6 +78,24 @@ public class FinancialTracker {
         // TODO: create file if it does not exist, then read each line,
         //       parse the five fields, build a Transaction object,
         //       and add it to the transactions list.
+        try {
+            FileReader fr = new FileReader("FILE_NAME");
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] part = line.split("\\|");
+                LocalDate date = LocalDate.parse(part[0], DATE_FMT);
+                LocalTime time = LocalTime.parse(part[1], TIME_FMT);
+                String description = part[2];
+                String vendor = part[3];
+                double price = Double.parseDouble(part[4]);
+                Transaction transaction = new Transaction(date, time, description, vendor, price);
+                transactions.add(transaction);
+            }
+            br.close();
+        }
+        catch (IOException e) { e.printStackTrace(); }
+
     }
 
     /* ------------------------------------------------------------------
@@ -88,6 +110,15 @@ public class FinancialTracker {
      */
     private static void addDeposit(Scanner scanner) {
         // TODO
+        System.out.print("Please enter date and time(e.g., \"2026-04-27 14:30:00\"): ");
+        LocalDateTime dateTime = LocalDateTime.parse(scanner.nextLine(), DATETIME_FMT);
+        System.out.print("Please enter the description of deposit: ");
+        String description = scanner.nextLine();
+        System.out.print("Please enter the name of vendor: ");
+        String vendor = scanner.nextLine();
+        System.out.print("Please enter the deposit amount: ");
+        double amount =
+
     }
 
     /**
