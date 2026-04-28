@@ -81,6 +81,9 @@ public class FinancialTracker {
             BufferedReader br = new BufferedReader(fr);
             String line;
             while ((line = br.readLine()) != null) {
+                if (line.isEmpty()) {
+                    continue;
+                }
                 String[] part = line.split("\\|");
                 LocalDate date = LocalDate.parse(part[0], DATE_FMT);
                 LocalTime time = LocalTime.parse(part[1], TIME_FMT);
@@ -133,6 +136,7 @@ public class FinancialTracker {
             Transaction deposit = new Transaction(datePart, timePart, description, vendor, amount);
             transactions.add(deposit);
             //write to file with toString method override for preferred format
+            writer.newLine();
             writer.write(deposit.toString());
             //close writer to update file
             writer.close();
@@ -165,7 +169,7 @@ public class FinancialTracker {
                 System.out.println("Invalid amount, payments must be greater than 0");
                 return;
             }
-            if (amount > 0){
+            if (amount > 0) {
                 amount = -amount;
             }
 //add to array list after user input
@@ -174,6 +178,7 @@ public class FinancialTracker {
             Transaction payment = new Transaction(datePart, timePart, description, vendor, amount);
             transactions.add(payment);
             //write to file with toString method override for preferred format
+            writer.newLine();
             writer.write(payment.toString());
             //close writer to update file
             writer.close();
@@ -213,7 +218,13 @@ public class FinancialTracker {
     /* ------------------------------------------------------------------
        Display helpers: show data in neat columns
        ------------------------------------------------------------------ */
-    private static void displayLedger() { /* TODO – print all transactions in column format */ }
+    private static void displayLedger() {
+        for (Transaction transaction : transactions) {
+            System.out.println(transaction);
+        }
+        ;
+        ;/* TODO – print all transactions in column format */
+    }
 
     private static void displayDeposits() { /* TODO – only amount > 0               */ }
 
