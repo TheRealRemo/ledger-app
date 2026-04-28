@@ -1,9 +1,6 @@
 package com.pluralsight;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -45,7 +42,7 @@ public class FinancialTracker {
         boolean running = true;
 
         while (running) {
-            System.out.println("Welcome to TransactionApp");
+            System.out.println("\nWelcome to TransactionApp");
             System.out.println("Choose an option:");
             System.out.println("D) Add Deposit");
             System.out.println("P) Make Payment (Debit)");
@@ -79,7 +76,7 @@ public class FinancialTracker {
         //       parse the five fields, build a Transaction object,
         //       and add it to the transactions list.
         try {
-            FileReader fr = new FileReader("FILE_NAME");
+            FileReader fr = new FileReader(FILE_NAME);
             BufferedReader br = new BufferedReader(fr);
             String line;
             while ((line = br.readLine()) != null) {
@@ -93,8 +90,9 @@ public class FinancialTracker {
                 transactions.add(transaction);
             }
             br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        catch (IOException e) { e.printStackTrace(); }
 
     }
 
@@ -110,14 +108,32 @@ public class FinancialTracker {
      */
     private static void addDeposit(Scanner scanner) {
         // TODO
-        System.out.print("Please enter date and time(e.g., \"2026-04-27 14:30:00\"): ");
-        LocalDateTime dateTime = LocalDateTime.parse(scanner.nextLine(), DATETIME_FMT);
-        System.out.print("Please enter the description of deposit: ");
-        String description = scanner.nextLine();
-        System.out.print("Please enter the name of vendor: ");
-        String vendor = scanner.nextLine();
-        System.out.print("Please enter the deposit amount: ");
-        double amount =
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
+            System.out.print("Please enter date and time(e.g., \"2026-04-27 14:30:00\"): ");
+            LocalDateTime dateTime = LocalDateTime.parse(scanner.nextLine(), DATETIME_FMT);
+            System.out.print("Please enter the description of deposit: ");
+            String description = scanner.nextLine();
+            System.out.print("Please enter the name of vendor: ");
+            String vendor = scanner.nextLine();
+            System.out.print("Please enter the deposit amount: ");
+            double amount = scanner.nextDouble();
+            scanner.nextLine();
+            if (amount <= 0) {
+                System.out.println("Invalid amount. Deposits must be greater than 0.");
+                return;
+            }
+
+            LocalDate datePart = dateTime.toLocalDate();
+            LocalTime timePart = dateTime.toLocalTime();
+            Transaction deposit = new Transaction(datePart,timePart,description,vendor,amount);
+            String formatDate =
+            String[] deposit = new String[];
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
