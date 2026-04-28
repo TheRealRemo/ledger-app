@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /*
@@ -108,10 +109,12 @@ public class FinancialTracker {
      */
     private static void addDeposit(Scanner scanner) {
         // TODO
-
+//user input with if statement if user puts in amount less than zero for deposit
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
             System.out.print("Please enter date and time(e.g., \"2026-04-27 14:30:00\"): ");
+            /*String dateTimeTime = scanner.nextLine();
+            LocalDateTime dateTimeTimeTime =  LocalDateTime.parse(dateTimeTime, DATETIME_FMT);*/
             LocalDateTime dateTime = LocalDateTime.parse(scanner.nextLine(), DATETIME_FMT);
             System.out.print("Please enter the description of deposit: ");
             String description = scanner.nextLine();
@@ -124,12 +127,15 @@ public class FinancialTracker {
                 System.out.println("Invalid amount. Deposits must be greater than 0.");
                 return;
             }
-
+//add to array list after user input
             LocalDate datePart = dateTime.toLocalDate();
             LocalTime timePart = dateTime.toLocalTime();
-            Transaction deposit = new Transaction(datePart,timePart,description,vendor,amount);
-            String formatDate =
-            String[] deposit = new String[];
+            Transaction deposit = new Transaction(datePart, timePart, description, vendor, amount);
+            transactions.add(deposit);
+            //write to file with toString method override for preferred format
+            writer.write(deposit.toString());
+            //close writer to update file
+            writer.close();
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -144,6 +150,37 @@ public class FinancialTracker {
      */
     private static void addPayment(Scanner scanner) {
         // TODO
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
+            System.out.print("Please enter date and time(e.g., \"2026-04-27 14:30:00\"): ");
+            LocalDateTime dateTime = LocalDateTime.parse(scanner.nextLine(), DATETIME_FMT);
+            System.out.print("Please enter the description of payment: ");
+            String description = scanner.nextLine();
+            System.out.print("Please enter the name of vendor: ");
+            String vendor = scanner.nextLine();
+            System.out.print("Please enter the payment amount: ");
+            double amount = scanner.nextDouble();
+            scanner.nextLine();
+            if (amount <= 0) {
+                System.out.println("Invalid amount, payments must be greater than 0");
+                return;
+            }
+            if (amount > 0){
+                amount = -amount;
+            }
+//add to array list after user input
+            LocalDate datePart = dateTime.toLocalDate();
+            LocalTime timePart = dateTime.toLocalTime();
+            Transaction payment = new Transaction(datePart, timePart, description, vendor, amount);
+            transactions.add(payment);
+            //write to file with toString method override for preferred format
+            writer.write(payment.toString());
+            //close writer to update file
+            writer.close();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /* ------------------------------------------------------------------
