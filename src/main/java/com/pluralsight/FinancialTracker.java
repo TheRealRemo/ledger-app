@@ -7,16 +7,10 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Scanner;
 
-/*
- * Capstone skeleton – personal finance tracker.
- * ------------------------------------------------
- * File format  (pipe-delimited)
- *     yyyy-MM-dd|HH:mm:ss|description|vendor|amount
- * A deposit has a positive amount; a payment is stored
- * as a negative amount.
- */
+
 public class FinancialTracker {
 
     /* ------------------------------------------------------------------
@@ -76,7 +70,9 @@ public class FinancialTracker {
         // TODO: create file if it does not exist, then read each line,
         try {
             File file = new File(FILE_NAME);
-            if (!file.exists()){file.createNewFile();}
+            if (!file.exists()) {
+                file.createNewFile();
+            }
             BufferedReader br = new BufferedReader(new FileReader(FILE_NAME));
             String line;
             while ((line = br.readLine()) != null) {
@@ -144,11 +140,7 @@ public class FinancialTracker {
 
     }
 
-    /**
-     * Same prompts as addDeposit.
-     * Amount must be entered as a positive number,
-     * then converted to a negative amount before storing.
-     */
+
     private static void addPayment(Scanner scanner) {
         // TODO
         try {
@@ -190,7 +182,7 @@ public class FinancialTracker {
 
         boolean running = true;
         while (running) {
-            transactions.sort();
+            transactions.sort(Comparator.comparing(Transaction::getDate).thenComparing(Transaction::getTime).reversed());
             System.out.println("Ledger");
             System.out.println("Choose an option:");
             System.out.println("A) All");
@@ -219,13 +211,20 @@ public class FinancialTracker {
         for (Transaction transaction : transactions) {
             System.out.println(transaction);
         }
-        ;
-        ;/* TODO – print all transactions in column format */
+
     }
 
-    private static void displayDeposits() { /* TODO – only amount > 0               */ }
+    private static void displayDeposits() {
+        for (Transaction transaction : transactions) {
+            if (transaction.getAmount() > 0) {
+                System.out.println(transaction);
+            }
+        }
+    }
 
-    private static void displayPayments() { /* TODO – only amount < 0               */ }
+    private static void displayPayments() {
+
+    }
 
     /* ------------------------------------------------------------------
        Reports menu
