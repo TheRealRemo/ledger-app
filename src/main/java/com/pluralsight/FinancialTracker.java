@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjuster;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -129,8 +131,8 @@ public class FinancialTracker {
             Transaction deposit = new Transaction(datePart, timePart, description, vendor, amount);
             transactions.add(deposit);
             //write to file with toString method override for preferred format
-            writer.write(deposit.toString());
             writer.newLine();
+            writer.write(deposit.toString());
             //close writer to update file
             writer.close();
 
@@ -165,8 +167,8 @@ public class FinancialTracker {
             transactions.add(payment);
             //write to file with toString method override for preferred format
             BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
-            writer.write(payment.toString());
             writer.newLine();
+            writer.write(payment.toString());
             //close writer to update file
             writer.close();
 
@@ -249,9 +251,24 @@ public class FinancialTracker {
             String input = scanner.nextLine().trim();
 
             switch (input) {
-                case "1" -> {/* TODO – month-to-date report */ }
-                case "2" -> {/* TODO – previous month report */ }
-                case "3" -> {/* TODO – year-to-date report   */ }
+                case "1" -> {
+                    LocalDate today = LocalDate.now();
+                    LocalDate start = today.withDayOfMonth(1);
+                    filterTransactionsByDate(start, today);
+                }
+                case "2" -> {
+                    //get today (minus a month) and put in variable to be used in method parameter
+                    LocalDate now = LocalDate.now();
+                    LocalDate lastMonth = now.minusMonths(1);
+                    LocalDate start = lastMonth.withDayOfMonth(1);
+                    LocalDate end = lastMonth.with(TemporalAdjusters.lastDayOfMonth());
+                    filterTransactionsByDate(start, end);
+                }
+                case "3" -> {
+                    LocalDate today = LocalDate.now();
+                    LocalDate start = today.withDayOfYear(1);
+                    filterTransactionsByDate(start, today);
+                }
                 case "4" -> {/* TODO – previous year report  */ }
                 case "5" -> {/* TODO – prompt for vendor then report */ }
                 case "6" -> customSearch(scanner);
@@ -265,7 +282,11 @@ public class FinancialTracker {
        Reporting helpers
        ------------------------------------------------------------------ */
     private static void filterTransactionsByDate(LocalDate start, LocalDate end) {
-        // TODO – iterate transactions, print those within the range
+        for (Transaction transaction : transactions) {
+            if (!transaction.getDate().isBefore(start) && !transaction.getDate().isAfter(end)) {
+                System.out.println(transaction);
+            }
+        }
     }
 
     private static void filterTransactionsByVendor(String vendor) {
