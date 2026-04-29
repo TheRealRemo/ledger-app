@@ -74,11 +74,10 @@ public class FinancialTracker {
      */
     public static void loadTransactions(String fileName) {
         // TODO: create file if it does not exist, then read each line,
-        //       parse the five fields, build a Transaction object,
-        //       and add it to the transactions list.
         try {
-            FileReader fr = new FileReader(FILE_NAME);
-            BufferedReader br = new BufferedReader(fr);
+            File file = new File(FILE_NAME);
+            if (!file.exists()){file.createNewFile();}
+            BufferedReader br = new BufferedReader(new FileReader(FILE_NAME));
             String line;
             while ((line = br.readLine()) != null) {
                 if (line.isEmpty()) {
@@ -115,9 +114,7 @@ public class FinancialTracker {
 //user input with if statement if user puts in amount less than zero for deposit
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
-            System.out.print("Please enter date and time(e.g., \"2026-04-27 14:30:00\"): ");
-            /*String dateTimeTime = scanner.nextLine();
-            LocalDateTime dateTimeTimeTime =  LocalDateTime.parse(dateTimeTime, DATETIME_FMT);*/
+            System.out.print("Please enter date and time(e.g., \"yyyy-MM-dd hh:mm:ss\"): ");
             LocalDateTime dateTime = LocalDateTime.parse(scanner.nextLine(), DATETIME_FMT);
             System.out.print("Please enter the description of deposit: ");
             String description = scanner.nextLine();
@@ -136,13 +133,13 @@ public class FinancialTracker {
             Transaction deposit = new Transaction(datePart, timePart, description, vendor, amount);
             transactions.add(deposit);
             //write to file with toString method override for preferred format
-            writer.newLine();
             writer.write(deposit.toString());
+            writer.newLine();
             //close writer to update file
             writer.close();
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            System.out.println("Error");
         }
 
     }
@@ -155,13 +152,12 @@ public class FinancialTracker {
     private static void addPayment(Scanner scanner) {
         // TODO
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
-            System.out.print("Please enter date and time(e.g., \"2026-04-27 14:30:00\"): ");
+            System.out.print("Please enter date and time(e.g., \"\"yyyy-MM-dd hh:mm:ss\"\"): ");
             LocalDateTime dateTime = LocalDateTime.parse(scanner.nextLine(), DATETIME_FMT);
             System.out.print("Please enter the description of payment: ");
-            String description = scanner.nextLine();
+            String description = scanner.nextLine().trim();
             System.out.print("Please enter the name of vendor: ");
-            String vendor = scanner.nextLine();
+            String vendor = scanner.nextLine().trim();
             System.out.print("Please enter the payment amount: ");
             double amount = scanner.nextDouble();
             scanner.nextLine();
@@ -169,17 +165,16 @@ public class FinancialTracker {
                 System.out.println("Invalid amount, payments must be greater than 0");
                 return;
             }
-            if (amount > 0) {
-                amount = -amount;
-            }
+
 //add to array list after user input
             LocalDate datePart = dateTime.toLocalDate();
             LocalTime timePart = dateTime.toLocalTime();
-            Transaction payment = new Transaction(datePart, timePart, description, vendor, amount);
+            Transaction payment = new Transaction(datePart, timePart, description, vendor, -amount);
             transactions.add(payment);
             //write to file with toString method override for preferred format
-            writer.newLine();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
             writer.write(payment.toString());
+            writer.newLine();
             //close writer to update file
             writer.close();
 
@@ -192,8 +187,10 @@ public class FinancialTracker {
        Ledger menu
        ------------------------------------------------------------------ */
     private static void ledgerMenu(Scanner scanner) {
+
         boolean running = true;
         while (running) {
+            transactions.sort();
             System.out.println("Ledger");
             System.out.println("Choose an option:");
             System.out.println("A) All");
