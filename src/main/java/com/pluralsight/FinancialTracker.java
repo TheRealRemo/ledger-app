@@ -269,8 +269,18 @@ public class FinancialTracker {
                     LocalDate start = today.withDayOfYear(1);
                     filterTransactionsByDate(start, today);
                 }
-                case "4" -> {/* TODO – previous year report  */ }
-                case "5" -> {/* TODO – prompt for vendor then report */ }
+                case "4" -> {
+                    LocalDate now = LocalDate.now();
+                    LocalDate lastYear = now.minusYears(1);
+                    LocalDate start = lastYear.withDayOfYear(1);
+                    LocalDate end = lastYear.with(TemporalAdjusters.lastDayOfYear());
+                    filterTransactionsByDate(start, end);
+                }
+                case "5" -> {
+                    System.out.print("Please enter vendor: ");
+                    String vendor = scanner.nextLine();
+                    filterTransactionsByVendor(vendor);
+                }
                 case "6" -> customSearch(scanner);
                 case "0" -> running = false;
                 default -> System.out.println("Invalid option");
@@ -290,7 +300,11 @@ public class FinancialTracker {
     }
 
     private static void filterTransactionsByVendor(String vendor) {
-        // TODO – iterate transactions, print those with matching vendor
+        for (Transaction transaction : transactions) {
+            if (transaction.getVendor().equalsIgnoreCase(vendor)) {
+                System.out.println(transaction);
+            }
+        }
     }
 
     private static void customSearch(Scanner scanner) {
