@@ -57,15 +57,12 @@ List resources such as tutorials, articles, or documentation that helped you dur
 - [Java Programming Tutorial](https://www.example.com)
 - [Effective Java](https://www.example.com)
 
-## Team Members
-
-- **Name 1** - Specific contributions or roles.
-- **Name 2** - Specific contributions or roles.
 
 ## Thanks
 
 Express gratitude towards those who provided help, guidance, or resources:
 
-- Thank you to [Mentor's Name] for continuous support and guidance.
-- A special thanks to all teammates for their dedication and teamwork.
+- Thank you to Potato Sensei for his encouragement and reviewing of my work.
+- Thank you to Ricky for tips, tricks and encouragement as I built this project.
+- Thanks to Adam for giving me encouragement to keep my head up during the process.
  

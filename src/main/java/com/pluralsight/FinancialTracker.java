@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
@@ -39,14 +40,19 @@ public class FinancialTracker {
         boolean running = true;
 
         while (running) {
-            System.out.println("\nWelcome to TransactionApp");
+            System.out.println("\n========================");
+            System.out.println("Welcome to MyLedgerApp!");
             System.out.println("Choose an option:");
-            System.out.println("D) Add Deposit");
+            System.out.println("D) Add Deposit ($)");
             System.out.println("P) Make Payment (Debit)");
             System.out.println("L) Ledger");
             System.out.println("X) Exit");
-
+            System.out.println("========================");
+            System.out.print("Please enter here: ");
             String input = scanner.nextLine().trim();
+            if (input.equalsIgnoreCase("x")){
+                System.out.println("Thank you for using MyLedgerApp!");
+            }
 
             switch (input.toUpperCase()) {
                 case "D" -> addDeposit(scanner);
@@ -108,56 +114,74 @@ public class FinancialTracker {
      * Store the amount as-is (positive) and append to the file.
      */
     private static void addDeposit(Scanner scanner) {
-        // TODO
 //user input with if statement if user puts in amount less than zero for deposit
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
-            System.out.print("Please enter date and time(e.g., \"yyyy-MM-dd hh:mm:ss\"): ");
-            LocalDateTime dateTime = LocalDateTime.parse(scanner.nextLine(), DATETIME_FMT);
-            System.out.print("Please enter the description of deposit: ");
-            String description = scanner.nextLine();
+        LocalDateTime dateTime = null;
+        String description = "";
+        String vendor = "";
+        double amount = 0;
+
+
+        while(dateTime == null){ try {
+
+            System.out.print("Please enter date and time(e.g., \"YYYY-MM-DD hh:mm:ss\"): ");
+            dateTime = LocalDateTime.parse(scanner.nextLine(), DATETIME_FMT);}
+         catch (DateTimeParseException ex){
+            System.out.println("Invalid input, please try again using format \"YYYY-MM-DD hh:mm:ss\"");
+        }}
+
+        System.out.print("Please enter the description of deposit: ");
+            description = scanner.nextLine();
             System.out.print("Please enter the name of vendor: ");
-            String vendor = scanner.nextLine();
+            vendor = scanner.nextLine();
             System.out.print("Please enter the deposit amount: ");
-            double amount = scanner.nextDouble();
+            amount = scanner.nextDouble();
             scanner.nextLine();
-            if (amount <= 0) {
-                System.out.println("Invalid amount. Deposits must be greater than 0.");
-                return;
-            }
+
 //add to array list after user input
             LocalDate datePart = dateTime.toLocalDate();
             LocalTime timePart = dateTime.toLocalTime();
             Transaction deposit = new Transaction(datePart, timePart, description, vendor, amount);
             transactions.add(deposit);
             //write to file with toString method override for preferred format
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
             writer.newLine();
             writer.write(deposit.toString());
             //close writer to update file
             writer.close();
-
-        } catch (Exception e) {
-            System.out.println("Error");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
     }
 
 
+
+
     private static void addPayment(Scanner scanner) {
-        // TODO
-        try {
-            System.out.print("Please enter date and time(e.g., \"\"yyyy-MM-dd hh:mm:ss\"\"): ");
+        boolean complete = false;
+        while (!complete){try {
+            System.out.print("Please enter date and time(e.g., \"YYYY-MM-DD hh:mm:ss\"): ");
             LocalDateTime dateTime = LocalDateTime.parse(scanner.nextLine(), DATETIME_FMT);
             System.out.print("Please enter the description of payment: ");
             String description = scanner.nextLine().trim();
             System.out.print("Please enter the name of vendor: ");
             String vendor = scanner.nextLine().trim();
+            if (description.isEmpty() || vendor.isEmpty()) {
+                System.out.println("Error: Description and Vendor cannot be blank.");
+                continue;
+            }
             System.out.print("Please enter the payment amount: ");
             double amount = scanner.nextDouble();
             scanner.nextLine();
+
             if (amount <= 0) {
-                System.out.println("Invalid amount, payments must be greater than 0");
+                System.out.println("Invalid input, please try again.");
                 return;
+            }
+            else {
+                System.out.println("Payment added successfully!");
+                complete = true;
             }
 
 //add to array list after user input
@@ -173,9 +197,9 @@ public class FinancialTracker {
             writer.close();
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            System.out.println("Invalid input, please try again.");
         }
-    }
+    }}
 
     /* ------------------------------------------------------------------
        Ledger menu
@@ -310,14 +334,17 @@ public class FinancialTracker {
     private static void customSearch(Scanner scanner) {
         // TODO – prompt for any combination of date range, description,
         //        vendor, and exact amount, then display matches
+        /*System.out.println("Please enter beginning date (e.g, \"YYYY-MM-dddd\"): ");
+        LocalDate startDate = scanner.();*/
     }
 
     /* ------------------------------------------------------------------
        Utility parsers (you can reuse in many places)
        ------------------------------------------------------------------ */
     private static LocalDate parseDate(String s) {
-        /* TODO – return LocalDate or null */
-        return null;
+        if (s == null || s.isBlank()){
+            return null;}
+       return LocalDate.parse(s, DATE_FMT);
     }
 
     private static Double parseDouble(String s) {
