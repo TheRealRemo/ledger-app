@@ -180,14 +180,19 @@ public class FinancialTracker {
                 System.out.println("Error: Description and Vendor cannot be blank.");
             }
         }
-       while (amount <= 0){System.out.print("Please enter the payment amount: ");
-         amount = scanner.nextDouble();
-        scanner.nextLine();
-        if (amount <= 0) {
-            System.out.println("Invalid input, please try again.");
-            return;
-        }
-        }
+       while (amount <= 0){
+           try {
+               System.out.print("Please enter the payment amount: ");
+               amount = scanner.nextDouble();
+               scanner.nextLine();
+               if (amount <= 0) {
+                   System.out.println("Value must be greater than 0, please try again.");
+               }
+           } catch (Exception e) {
+               System.out.println("Error, invalid input, please enter number");
+               scanner.nextLine();
+           }
+       }
 
 //add to array list after user input
         LocalDate datePart = dateTime.toLocalDate();
