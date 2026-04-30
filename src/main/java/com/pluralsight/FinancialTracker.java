@@ -131,13 +131,28 @@ public class FinancialTracker {
             }
         }
 
-        System.out.print("Please enter the description of deposit: ");
-        description = scanner.nextLine();
-        System.out.print("Please enter the name of vendor: ");
-        vendor = scanner.nextLine();
-        System.out.print("Please enter the deposit amount: ");
-        amount = scanner.nextDouble();
-        scanner.nextLine();
+        while (description.isEmpty() || vendor.isEmpty()){
+            System.out.print("Please enter the description of your deposit: ");
+            description = scanner.nextLine().trim();
+            System.out.print("Please enter the name of the vendor: ");
+            vendor = scanner.nextLine().trim();
+            if (description.isEmpty() || vendor.isEmpty()) {
+                System.out.println("Error: Description and Vendor cannot be blank.");
+            }
+        }
+        while (amount <= 0){
+            try {
+                System.out.print("Please enter the deposit amount: ");
+                amount = scanner.nextDouble();
+                scanner.nextLine();
+                if (amount <= 0) {
+                    System.out.println("Value must be greater than 0, please try again.");
+                }
+            } catch (Exception e) {
+                System.out.println("Error, invalid input, please enter number");
+                scanner.nextLine();
+            }
+        }
 
 //add to array list after user input
         LocalDate datePart = dateTime.toLocalDate();
@@ -162,11 +177,11 @@ public class FinancialTracker {
         LocalDateTime dateTime = null;
         String description = "";
         String vendor = "";
-        Double amount = 0.00;
+        double amount = 0;
         while (dateTime == null) {
             try {
                 System.out.print("Please enter date and time(e.g., \"YYYY-MM-DD hh:mm:ss\"): ");
-                dateTime = LocalDateTime.parse(scanner.nextLine(), DATETIME_FMT);
+                dateTime = LocalDateTime.parse(scanner.nextLine().trim(), DATETIME_FMT);
             } catch (DateTimeParseException ex) {
                 System.out.println("Invalid input, please try again using format \"YYYY-MM-DD hh:mm:ss\"");
             }
