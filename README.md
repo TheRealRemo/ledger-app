@@ -44,7 +44,7 @@ Follow these steps to get your application running within IntelliJ IDEA:
 
 
 
-[Deposit Capabilities]![depositrecording-ezgif.com-speed.gif](../../../Users/Remo%20Price/Downloads/depositrecording-ezgif.com-speed.gif)
+![Deposit Capabilities](https://i.imgur.com/Ui7ebRZ.gif)
 
 ## Future Work
 
