@@ -9,10 +9,8 @@ Embedded is an auto sorting feature that will automatically list your transactio
 
 ## User Stories
 
-List the user stories that guided the development of your application. Format these stories as: "As a [type of user], I want [some goal] so that [some reason]."
-
 - As a user, I would like to be able to see my payments, so that I can keep track of my payment history
-- As a user, I would like to be able to see my payments, so that I can keep track of my payment history
+- As a user, I would like a way to see my deposits, so that I can keep track of my deposit history
 - As a user, I would like to be able to search my reports by vendor, so that I can see my transactions with specific vendors at one time and not have to go through my entire list of transactions.
 - As a user I would like to be able to search for my payment and deposit history from the previous year and month, so that I don't have to manually search through to find it all.
 
@@ -43,7 +41,7 @@ Follow these steps to get your application running within IntelliJ IDEA:
 ## Demo
 
 
-
+Deposit Tracking Functionality:
 ![Deposit Capabilities](https://i.imgur.com/Ui7ebRZ.gif)
 
 ## Future Work

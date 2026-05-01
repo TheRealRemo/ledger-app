@@ -130,13 +130,22 @@ public class FinancialTracker {
             }
         }
 
-        while (description.isEmpty() || vendor.isEmpty()){
+        while (description.isEmpty()){
             System.out.print("Please enter the description of your deposit: ");
             description = scanner.nextLine().trim();
             System.out.print("Please enter the name of the vendor: ");
             vendor = scanner.nextLine().trim();
-            if (description.isEmpty() || vendor.isEmpty()) {
-                System.out.println("Error: Description and Vendor cannot be blank.");
+            if (description.isEmpty()) {
+                System.out.println("Error: Description cannot be blank.");
+            }
+        }
+        while (vendor.isEmpty()){
+            System.out.print("Please enter the description of your deposit: ");
+            description = scanner.nextLine().trim();
+            System.out.print("Please enter the name of the vendor: ");
+            vendor = scanner.nextLine().trim();
+            if (vendor.isEmpty()) {
+                System.out.println("Error: Vendor cannot be blank.");
             }
         }
         while (amount <= 0){
@@ -188,13 +197,22 @@ public class FinancialTracker {
                 System.out.println("Invalid input, please try again using format \"YYYY-MM-DD hh:mm:ss\"");
             }
         }
-        while (description.isEmpty() || vendor.isEmpty()){
-            System.out.print("Please enter the description of payment: ");
+        while (description.isEmpty()){
+            System.out.print("Please enter the description of your deposit: ");
             description = scanner.nextLine().trim();
-            System.out.print("Please enter the name of vendor: ");
-             vendor = scanner.nextLine().trim();
-            if (description.isEmpty() || vendor.isEmpty()) {
-                System.out.println("Error: Description and Vendor cannot be blank.");
+            System.out.print("Please enter the name of the vendor: ");
+            vendor = scanner.nextLine().trim();
+            if (description.isEmpty()) {
+                System.out.println("Error: Description cannot be blank.");
+            }
+        }
+        while (vendor.isEmpty()){
+            System.out.print("Please enter the description of your deposit: ");
+            description = scanner.nextLine().trim();
+            System.out.print("Please enter the name of the vendor: ");
+            vendor = scanner.nextLine().trim();
+            if (vendor.isEmpty()) {
+                System.out.println("Error: Vendor cannot be blank.");
             }
         }
        while (amount <= 0){
