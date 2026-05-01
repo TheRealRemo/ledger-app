@@ -123,7 +123,6 @@ public class FinancialTracker {
 
         while (dateTime == null) {
             try {
-
                 System.out.print("Please enter date and time(e.g., \"YYYY-MM-DD hh:mm:ss\"): ");
                 dateTime = LocalDateTime.parse(scanner.nextLine(), DATETIME_FMT);
             } catch (DateTimeParseException ex) {

@@ -1,8 +1,11 @@
 # Project Title
-
+MyLedgerApp
 ## Description of the Project
 
-Briefly describe what this Java console application does. Mention its purpose and who the intended users are. Explain the main functionality and what problems it aims to solve.
+MyLedgerApp is a ledger documentation application for keeping track of all your transactions! These transactions can be your deposits or payments,
+whether they were from last year, last week, today or tomorrow. 
+Due to the flexible functionality you can add any date and time to your transactions, ensuring you can see all your history from beginning to end.
+Embedded is an auto sorting feature that will automatically list your transactions from most recent to oldest.
 
 ## User Stories
 
@@ -30,7 +33,7 @@ Follow these steps to get your application running within IntelliJ IDEA:
 2. Select "Open" and navigate to the directory where you cloned or downloaded the project.
 3. After the project opens, wait for IntelliJ to index the files and set up the project.
 4. Find the main class with the `public static void main(String[] args)` method.
-5. Right-click on the file and select 'Run 'YourMainClassName.main()'' to start the application.
+5. Right-click on the file and select 'Run 'FinancialTracker.main()'' to start the application.
 
 ## Technologies Used
 
@@ -47,14 +50,13 @@ Include screenshots or GIFs that show your application in action. Use tools like
 
 Outline potential future enhancements or functionalities you might consider adding:
 
-- Additional feature to be developed.
-- Improvement of current functionalities.
+- I would like to add a custom search with stricter parameters for enhanced searching capability.
+- I would like to have a more polished user interface.
+- I would like to add more methods for cleaner code.
 
 ## Resources
 
-List resources such as tutorials, articles, or documentation that helped you during the project.
-
-- [Java Programming Tutorial](https://www.example.com)
+- [LocalDate and LocalTime methods](https://raymaroun.github.io/yearup-java-visuals/week-03/visuals/04-local-date-time.html)
 - [Effective Java](https://www.example.com)
 
 
