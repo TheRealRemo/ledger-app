@@ -57,7 +57,8 @@ Outline potential future enhancements or functionalities you might consider addi
 ## Resources
 
 - [LocalDate and LocalTime methods](https://raymaroun.github.io/yearup-java-visuals/week-03/visuals/04-local-date-time.html)
-- [Effective Java](https://www.example.com)
+- [Capstone 1 Work Flow](https://raymaroun.github.io/yearup-java-visuals/week-04/index.html)
+- [Java Concepts and Flow Explained (Try-Catch Blocks, Array Lists, If statements)](https://gemini.google.com/share/1749eb7f38d3)
 
 
 ## Thanks

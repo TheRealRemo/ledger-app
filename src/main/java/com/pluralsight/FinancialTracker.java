@@ -147,6 +147,9 @@ public class FinancialTracker {
                 if (amount <= 0) {
                     System.out.println("Value must be greater than 0, please try again.");
                 }
+                else {
+                    System.out.println("\nDeposit added successfully!");
+                }
             } catch (Exception e) {
                 System.out.println("Error, invalid input, please enter number");
                 scanner.nextLine();
@@ -165,8 +168,8 @@ public class FinancialTracker {
             writer.write(deposit.toString());
             //close writer to update file
             writer.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+
         }
 
     }
@@ -202,6 +205,9 @@ public class FinancialTracker {
                if (amount <= 0) {
                    System.out.println("Value must be greater than 0, please try again.");
                }
+               else {
+                   System.out.println("\nPayment added successfully!");
+               }
            } catch (Exception e) {
                System.out.println("Error, invalid input, please enter number");
                scanner.nextLine();
@@ -220,7 +226,7 @@ public class FinancialTracker {
             writer.write(payment.toString());
             //close writer to update file
             writer.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
 
         }
 
