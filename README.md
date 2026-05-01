@@ -41,9 +41,19 @@ Follow these steps to get your application running within IntelliJ IDEA:
 ## Demo
 
 
-Deposit Tracking Functionality:
+Deposit Tracking:
 ![Deposit Capabilities](https://i.imgur.com/Ui7ebRZ.gif)
 
+Payment Tracking:
+![Payment Capabilities](https://i.imgur.com/ZPKcO37.gif)
+
+Transaction Listing (All, Deposit,Payments)
+![Listing](https://i.imgur.com/OZQhHjs.gif)
+Reports (Transaction listing with date ranges)
+![Reports](https://i.imgur.com/A9vApKD.gif)
+
+Specific Vendor Search (Reports Feature)
+![Vendor](https://i.imgur.com/63D7grC.gif)
 ## Future Work
 
 Outline potential future enhancements or functionalities you might consider adding:

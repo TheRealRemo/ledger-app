@@ -75,7 +75,6 @@ public class FinancialTracker {
      * • Each line looks like: date|time|description|vendor|amount
      */
     public static void loadTransactions(String fileName) {
-        // TODO: create file if it does not exist, then read each line,
         try {
             File file = new File(FILE_NAME);
             if (!file.exists()) {
@@ -164,8 +163,7 @@ public class FinancialTracker {
                 scanner.nextLine();
             }
         }
-
-//add to array list after user input
+        //add to array list after user input
         LocalDate datePart = dateTime.toLocalDate();
         LocalTime timePart = dateTime.toLocalTime();
         Transaction deposit = new Transaction(datePart, timePart, description, vendor, amount);
@@ -382,8 +380,7 @@ private static void filterTransactionsByVendor(String vendor) {
 }
 
 private static void customSearch(Scanner scanner) {
-    // TODO – prompt for any combination of date range, description,
-    //        vendor, and exact amount, then display matches
+
         /*System.out.println("Please enter beginning date (e.g, \"YYYY-MM-dddd\"): ");
         LocalDate startDate = scanner.();*/
 }
@@ -392,10 +389,7 @@ private static void customSearch(Scanner scanner) {
    Utility parsers (you can reuse in many places)
    ------------------------------------------------------------------ */
 private static LocalDate parseDate(String s) {
-    if (s == null || s.isBlank()) {
-        return null;
-    }
-    return LocalDate.parse(s, DATE_FMT);
+    return null;
 }
 
 private static Double parseDouble(String s) {
